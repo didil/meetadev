@@ -9,6 +9,15 @@
       <form class="form" name="form" ng-submit="register(form)" novalidate>
 
         <div class="row">
+          <div class="form-group col-sm-4">
+            <div class="btn-group">
+              <label class="btn btn-primary" ng-model="user.role" btn-radio="'client'" >Client</label>
+              <label class="btn btn-primary" ng-model="user.role" btn-radio="'freelancer'" >Freelancer</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="form-group col-sm-3" ng-class="{ 'has-success': form.firstName.$valid && submitted,
                                             'has-error': form.firstName.$invalid && submitted }">
             <label>First Name</label>

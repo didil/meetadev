@@ -1,29 +1,31 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: AdminCtrl', function () {
 
   // load the controller's module
   beforeEach(module('meetadevApp'));
   beforeEach(module('socketMock'));
 
-  var MainCtrl,
+  var AdminCtrl,
       scope,
       $httpBackend;
+
+  var users = [{_id:1},{_id:2}];
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/things')
-      .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
+    $httpBackend.expectGET('/api/users')
+      .respond(users);
 
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    AdminCtrl = $controller('AdminCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of things to the scope', function () {
+  it('should attach a list of users to the scope', function () {
     $httpBackend.flush();
-    expect(scope.awesomeThings.length).toBe(4);
+    expect(scope.users.length).toBe(2);
   });
 });
