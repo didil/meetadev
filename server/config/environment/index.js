@@ -29,11 +29,11 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'meetadev-secret'
+    session: process.env.SESSION_SECRET
   },
 
   // List of user roles
-  userRoles: ['guest', 'user', 'admin'],
+  userRoles: ['client', 'freelancer', 'admin'],
 
   // MongoDB connection options
   mongo: {
