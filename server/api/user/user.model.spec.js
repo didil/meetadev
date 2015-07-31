@@ -3,6 +3,7 @@
 var should = require('should');
 var app = require('../../app');
 var User = require('./user.model');
+var Factory = require('../../config/factories');
 
 var user ;
 
@@ -15,12 +16,7 @@ describe('User Model', function () {
   });
 
   beforeEach(function () {
-    user = new User({
-      provider: 'local',
-      name: 'Fake User',
-      email: 'test@test.com',
-      password: 'password'
-    });
+    user = new User(Factory.attributes('user'));
   });
 
   afterEach(function (done) {

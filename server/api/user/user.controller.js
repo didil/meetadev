@@ -26,6 +26,7 @@ exports.index = function(req, res) {
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
+  if( newUser.role !== 'client' && newUser.role !== 'freelancer') return res.status(500).send('Invalid User Role');
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
