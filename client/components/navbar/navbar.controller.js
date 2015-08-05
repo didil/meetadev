@@ -10,6 +10,8 @@ angular.module('meetadevApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
+    $scope.isClient = Auth.isClient;
+    $scope.isFreelancer = Auth.isFreelancer;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
     $scope.logout = function() {

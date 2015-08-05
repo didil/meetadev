@@ -136,6 +136,14 @@ angular.module('meetadevApp')
         return currentUser.role === 'admin';
       },
 
+      isClient: function() {
+        return currentUser.role === 'client';
+      },
+
+      isFreelancer: function() {
+        return currentUser.role === 'freelancer';
+      },
+
       /**
        * Get auth token
        */
