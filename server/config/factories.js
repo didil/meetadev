@@ -8,6 +8,7 @@ Factory.define('user')
   .attr('email', 'test@test.com')
   .attr('password', 'password');
 
-
+Factory.define('freelancer-user').extend('user').attr('role', 'freelancer');
+Factory.define('client-user').extend('user').attr('role', 'client');
 
 module.exports = Factory;
