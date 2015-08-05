@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
+  .controller('NavbarCtrl', function ($scope, $state, Auth) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/'
+      'state': 'main'
     }];
 
     $scope.isCollapsed = true;
@@ -16,11 +16,11 @@ angular.module('meetadevApp')
 
     $scope.logout = function () {
       Auth.logout();
-      $location.path('/login');
+      $state.go('login');
     };
 
-    $scope.isActive = function (route) {
-      return route === $location.path();
+    $scope.isActive = function (state) {
+      return $state.includes(state) ;
     };
 
   });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', function ($scope, Auth,$state,  $window) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -14,7 +14,7 @@ angular.module('meetadevApp')
           password: $scope.user.password
         }).then(function () {
           // Logged in, redirect to home
-          $location.path('/dashboard');
+          $state.go('main');
         }).catch(function (err) {
           $scope.errors.other = err.message;
         });

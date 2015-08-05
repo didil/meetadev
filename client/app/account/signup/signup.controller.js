@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
+  .controller('SignupCtrl', function ($scope, Auth, $state, $window) {
     $scope.user = {role: 'client'};
     $scope.errors = {};
 
@@ -17,7 +17,7 @@ angular.module('meetadevApp')
           role: $scope.user.role
         }).then(function () {
           // Account created, redirect to home
-          $location.path('/dashboard');
+          $state.go('main');
         }).catch(function (err) {
           err = err.data;
           $scope.errors = {};

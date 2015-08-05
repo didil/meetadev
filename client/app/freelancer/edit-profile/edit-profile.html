@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>Edit Profile</h2></div>
+      <div class="panel-body">
+        <form class="form" name="editProfileForm" ng-submit="updateProfile(user)" novalidate>
+
+          <div class="row">
+            <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.title.$valid && submitted,
+                                            'has-error': editProfileForm.title.$invalid && submitted }">
+              <label>Title</label>
+              <input type="text" name="title" class="form-control" ng-model="user.title"
+                     placeholder="Senior Front End Engineer"
+                     required/>
+              <p class="help-block" ng-show="editProfileForm.title.$error.required && submitted">
+                A Title is required
+              </p>
+            </div>
+          </div>
+
+
+          <div>
+            <button class="btn btn-lg btn-primary" type="submit">
+              Update
+            </button>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
