@@ -18,9 +18,30 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.website.$valid && submitted,
+                                            'has-error': editProfileForm.website.$invalid && submitted }">
+              <label>Pro Website</label>
+              <input type="url" name="website" class="form-control" ng-model="user.website"
+                     placeholder="http://www.dev-ninja.example.com"
+                     mongoose-error
+                     />
+
+
+              <p class="help-block" ng-show="editProfileForm.website.$error.url && submitted">
+                Doesn't look like a valid url.
+              </p>
+
+              <p class="help-block" ng-show="editProfileForm.website.$error.mongoose">
+                {{ errors.website }}
+              </p>
+
+            </div>
+          </div>
+
 
           <div>
-            <button class="btn btn-lg btn-primary" type="submit">
+            <button class="btn btn-lg btn-primary" type="submit" ng-disabled="submitting">
               Update
             </button>
 

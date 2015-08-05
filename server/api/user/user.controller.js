@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var _ = require('lodash');
 
 var validationError = function (res, err) {
   return res.status(422).json(err);
@@ -93,13 +94,16 @@ exports.me = function (req, res, next) {
   });
 };
 
+/**
+ * Update my profile
+ */
 exports.updateProfile = function (req, res, next) {
   var userId = req.user._id;
-  var title = req.body.title;
 
   User.findById(userId, function (err, user) {
-    user.title = title;
-    user.save(function (err) {
+    var attrs = _.pick(req.body, ['title', 'website']);
+    var updatedUser = _.merge(user, attrs);
+    updatedUser.save(function (err) {
       if (err) return validationError(res, err);
       res.status(200).send('OK');
     });

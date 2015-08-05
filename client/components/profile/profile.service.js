@@ -2,13 +2,14 @@
 
 angular.module('meetadevApp')
   .factory('Profile', function ($http) {
-    return {
-      update: function (attrs) {
-        var result = $http.put('/api/users/profile', {
-          title: attrs.title
-        });
 
-        return result;
-      }
+    function update(attrs) {
+      var safeAttrs = _.pick(attrs, ['title', 'website']);
+
+      return $http.put('/api/users/profile', safeAttrs);
+    }
+
+    return {
+      update: update
     }
   });
