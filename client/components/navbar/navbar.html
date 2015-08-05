@@ -11,10 +11,16 @@
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-if="isVisible(item)">
             <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>
+
         <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
+
+        <li ng-show="isFreelancer()" ng-class="{active: isActive('/freelancer-dashboard')}"><a href="/freelancer-dashboard">Dashboard</a></li>
+
+        <li ng-show="isClient()" ng-class="{active: isActive('/client-dashboard')}"><a href="/client-dashboard">Dashboard</a></li>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
