@@ -51,10 +51,20 @@ exports.destroy = function(req, res) {
   Project.findById(req.params.id, function (err, project) {
     if(err) { return handleError(res, err); }
     if(!project) { return res.status(404).send('Not Found'); }
+    if (!project.owner === req.user._id) return res.status(401).send('Unauthorized');
+
     project.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.status(204).send('No Content');
     });
+  });
+};
+
+// Get matching projects for a freelancer
+exports.match = function(req, res) {
+  Project.find( {owner: req.user._id}).sort({createdAt:'-1'}).exec(function (err, projects) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(projects);
   });
 };
 
