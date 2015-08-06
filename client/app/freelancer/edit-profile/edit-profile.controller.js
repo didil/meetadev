@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('FreelancerEditProfileCtrl', function ($scope, Auth,Profile,$state) {
+  .controller('FreelancerEditProfileCtrl', function ($scope, Auth,Profile,$state,Flash) {
     $scope.user = Auth.getCurrentUser();
     $scope.errors = {};
     $scope.submitting = false;
@@ -15,6 +15,7 @@ angular.module('meetadevApp')
         Profile.update($scope.user).then(function () {
           // Account created, redirect to home
           $scope.submitting = false;
+          Flash.create('success', "Profile saved successfully");
           $state.go('freelancer.dashboard');
         }).catch(function (err) {
           err = err.data;
