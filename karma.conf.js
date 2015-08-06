@@ -24,6 +24,7 @@ module.exports = function(config) {
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
       'client/bower_components/angular-flash-alert/dist/angular-flash.js',
       'client/bower_components/angular-ui-select/dist/select.js',
+      'client/bower_components/angular-gravatar/build/angular-gravatar.js',
       'client/app/app.js',
       'client/app/app.coffee',
       'client/app/**/*.js',

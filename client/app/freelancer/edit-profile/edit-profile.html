@@ -12,6 +12,7 @@
               <input type="text" name="title" class="form-control" ng-model="user.title"
                      placeholder="Senior Front End Engineer"
                      required/>
+
               <p class="help-block" ng-show="editProfileForm.title.$error.required && submitted">
                 A Title is required
               </p>
@@ -19,15 +20,26 @@
           </div>
 
           <div class="row">
-            <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.aboutMe.$valid && submitted,
+            <div class="form-group  col-sm-6">
+              <label>Picture</label>
+              <em><a href="https://en.gravatar.com/" target="_blank">Please change the Gravatar for your email address to change it</a></em>
+              <div>
+                <img gravatar-src="user.email" gravatar-size="200" class="img-thumbnail img-responsive">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-8" ng-class="{ 'has-success': editProfileForm.aboutMe.$valid && submitted,
                                             'has-error': editProfileForm.aboutMe.$invalid && submitted }">
               <label>About me</label>
               <textarea name="aboutMe" class="form-control" ng-model="user.aboutMe" rows="4"
-                     placeholder="I've been coding web apps since 2005 using ..." ng-minlength="50"
-                     required/> </textarea>
+                        placeholder="I've been coding web apps since 2005 using ..." ng-minlength="50"
+                        required/> </textarea>
               <p class="help-block" ng-show="editProfileForm.aboutMe.$error.required && submitted">
                 Say something about yourself !
               </p>
+
               <p class="help-block" ng-show="editProfileForm.aboutMe.$error.minlength && submitted">
                 Text too short (Min 50 characters).
               </p>
@@ -41,7 +53,8 @@
 
               <ui-select multiple ng-model="user.skills" id="skills-ui-select">
                 <ui-select-match placeholder="Select skills ...">{{$item}}</ui-select-match>
-                <ui-select-choices repeat="skill in availableSkills | filter:$select.search" refresh="searchSkills($select.search)" refresh-delay="300">
+                <ui-select-choices repeat="skill in availableSkills | filter:$select.search"
+                                   refresh="searchSkills($select.search)" refresh-delay="300">
                   {{skill}}
                 </ui-select-choices>
               </ui-select>
@@ -57,7 +70,7 @@
               <input type="url" name="website" class="form-control" ng-model="user.website"
                      placeholder="http://www.dev-ninja.example.com"
                      mongoose-error
-                     />
+                  />
 
 
               <p class="help-block" ng-show="editProfileForm.website.$error.url && submitted">

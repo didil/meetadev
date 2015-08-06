@@ -8,9 +8,10 @@ angular.module('meetadevApp', [
   'ui.router',
   'ui.bootstrap',
   'flash',
-  'ui.select'
+  'ui.select',
+  'ui.gravatar'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, uiSelectConfig) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, uiSelectConfig,gravatarServiceProvider) {
     $urlRouterProvider
       .otherwise('/');
 
@@ -18,6 +19,12 @@ angular.module('meetadevApp', [
     $httpProvider.interceptors.push('authInterceptor');
 
     uiSelectConfig.theme = 'bootstrap';
+
+    gravatarServiceProvider.defaults = {
+      size     : 100,
+      "default": 'mm'  // Mystery man as default for missing avatars
+    };
+    gravatarServiceProvider.secure = false;
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
