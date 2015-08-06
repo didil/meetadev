@@ -16,7 +16,9 @@
     "angular-ui-router": "~0.2.15",
     "angular-flash-alert": "~1.1.1",
     "angular-ui-select": "~0.12.1",
-    "angular-gravatar": "~0.4.1"
+    "angular-gravatar": "~0.4.1",
+    "angular-truncate-2": "~0.2.0",
+    "angular-moment": "~0.10.2"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

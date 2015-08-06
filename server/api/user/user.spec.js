@@ -2,7 +2,7 @@
 
 var should = require('should');
 var app = require('../../app');
-var User = require('./user.model');
+var User = require('../user/user.model');
 var request = require('supertest');
 var Factory = require('../../config/factories');
 var createUserAndLogin = require('../../spec-helpers/login');

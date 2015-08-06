@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-xs-12">
+    <a ui-sref="client.projects-list" class="btn btn-success">Back to Projects List</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>{{editAction == 'CREATE' ? 'Create' : 'Edit'}} Project</h2></div>
+      <div class="panel-body">
+        <form class="form" name="editProjectForm" ng-submit="updateProject(project)" novalidate>
+
+          <div class="row">
+            <div class="form-group col-sm-4" ng-class="{ 'has-success': editProjectForm.title.$valid && submitted,
+                                            'has-error': editProjectForm.title.$invalid && submitted }">
+              <label>Title</label>
+              <input type="text" name="title" class="form-control" ng-model="project.title"
+                     placeholder="Node.js App with Bootstrap"
+                     required/>
+
+              <p class="help-block" ng-show="editProjectForm.title.$error.required && submitted">
+                Please add a title
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-8" ng-class="{ 'has-success': editProjectForm.description.$valid && submitted,
+                                            'has-error': editProjectForm.description.$invalid && submitted }">
+              <label>Description</label>
+              <textarea name="description" class="form-control" ng-model="project.description" rows="4"
+                        placeholder="We're looking for a developer to help us build a Node.js App with ..."
+                        ng-minlength="50"
+                        required/> </textarea>
+              <p class="help-block" ng-show="editProjectForm.description.$error.required && submitted">
+                Please add a project description
+              </p>
+
+              <p class="help-block" ng-show="editProjectForm.description.$error.minlength && submitted">
+                Text too short (Min 50 characters).
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-10" ng-class="{ 'has-success': editProjectForm.skills.$valid && submitted,
+                                            'has-error': editProjectForm.skills.$invalid && submitted }">
+              <label>Skills Required</label>
+
+              <ui-select multiple ng-model="project.skills" id="skills-ui-select">
+                <ui-select-match placeholder="Select skills ...">{{$item}}</ui-select-match>
+                <ui-select-choices repeat="skill in availableSkills | filter:$select.search"
+                                   refresh="searchSkills($select.search)" refresh-delay="300">
+                  {{skill}}
+                </ui-select-choices>
+              </ui-select>
+
+            </div>
+          </div>
+
+          <div>
+            <button class="btn btn-lg btn-primary" type="submit" ng-disabled="submitting">
+              Save
+            </button>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '',
@@ -25,6 +25,9 @@ module.exports = function(config) {
       'client/bower_components/angular-flash-alert/dist/angular-flash.js',
       'client/bower_components/angular-ui-select/dist/select.js',
       'client/bower_components/angular-gravatar/build/angular-gravatar.js',
+      'client/bower_components/angular-truncate-2/src/truncate.js',
+      'client/bower_components/moment/moment.js',
+      'client/bower_components/angular-moment/angular-moment.js',
       'client/app/app.js',
       'client/app/app.coffee',
       'client/app/**/*.js',
@@ -40,7 +43,7 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
-      '**/*.coffee': 'coffee',
+      '**/*.coffee': 'coffee'
     },
 
     ngHtml2JsPreprocessor: {
@@ -51,7 +54,6 @@ module.exports = function(config) {
       stripPrefix: 'client/'
     },
 
-    
 
     // list of files / patterns to exclude
     exclude: [],

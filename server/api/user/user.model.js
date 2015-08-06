@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var validUrl = require('valid-url');
+var timestamps = require('mongoose-timestamp');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
@@ -23,6 +24,11 @@ var UserSchema = new Schema({
   facebook: {},
   github: {}
 });
+
+/**
+ * Plugins
+ */
+UserSchema.plugin(timestamps);
 
 /**
  * Virtuals

@@ -86,12 +86,13 @@ exports.changePassword = function (req, res, next) {
 exports.me = function (req, res, next) {
   var userId = req.user._id;
   User.findOne({
-    _id: userId
-  }, '-salt -hashedPassword', function (err, user) { // don't ever give out the password or salt
-    if (err) return next(err);
-    if (!user) return res.status(401).send('Unauthorized');
-    res.json(user);
-  });
+      _id: userId
+    }, '-salt -hashedPassword -projects',
+    function (err, user) { // don't ever give out the password or salt
+      if (err) return next(err);
+      if (!user) return res.status(401).send('Unauthorized');
+      res.json(user);
+    });
 };
 
 /**
@@ -101,7 +102,7 @@ exports.updateProfile = function (req, res, next) {
   var userId = req.user._id;
 
   User.findById(userId, function (err, user) {
-    var attrs = _.pick(req.body, ['title', 'website','aboutMe','skills','hourlyRate','company']);
+    var attrs = _.pick(req.body, ['title', 'website', 'aboutMe', 'skills', 'hourlyRate', 'company']);
     console.log(attrs);
 
     var updatedUser = _.merge(user, attrs);

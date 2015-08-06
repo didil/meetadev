@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('FreelancerEditProfileCtrl', function ($scope, Auth, Profile, $state, Flash, Skill) {
+  .controller('ClientEditProjectCtrl', function ($scope, Auth, Project,Skill, $state, Flash ,editAction , project) {
 
     var initialize = function () {
       $scope.user = Auth.getCurrentUser();
       $scope.errors = {};
       $scope.submitting = false;
       $scope.availableSkills = [];
+      $scope.editAction = editAction;
+      $scope.project = project;
     };
 
-    initialize();
-
     $scope.searchSkills = function (q) {
-      if(!q || !q.trim()) return ;
+      if (!q || !q.trim()) return;
 
       Skill.find(q).then(function (response) {
         $scope.availableSkills = response.data;
@@ -22,16 +22,19 @@ angular.module('meetadevApp')
       });
     };
 
-    $scope.updateProfile = function (user) {
+    initialize();
+
+    $scope.updateProject = function (project) {
       $scope.submitted = true;
 
-      if ($scope.editProfileForm.$valid) {
+      if ($scope.editProjectForm.$valid) {
         $scope.submitting = true;
 
-        Profile.update($scope.user).then(function () {
+        var editFunction = ($scope.editAction == 'CREATE') ? Project.create : Project.update;
+        editFunction(project).then(function () {
           $scope.submitting = false;
-          Flash.create('success', "Profile saved successfully");
-          $state.go('freelancer.dashboard');
+          Flash.create('success', "Project saved successfully");
+          $state.go('client.projects-list');
         }).catch(function (err) {
           err = err.data;
           $scope.errors = {};
@@ -39,7 +42,7 @@ angular.module('meetadevApp')
 
           // Update validity of form fields that match the mongoose errors
           angular.forEach(err.errors, function (error, field) {
-            $scope.editProfileForm[field].$setValidity('mongoose', false);
+            $scope.editProjectForm[field].$setValidity('mongoose', false);
             $scope.errors[field] = error.message;
           });
         });

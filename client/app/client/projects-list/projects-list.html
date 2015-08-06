@@ -1,0 +1,40 @@
+<div class="row" id="projects-list-header">
+  <div class="col-xs-12">
+    <h2>My Projects
+      <a href ui-sref="client.create-project" class="btn btn-primary btn-lg pull-right">Create Project</a>
+    </h2>
+  </div>
+</div>
+
+<div class="row" id="projects-list-container">
+  <div class="col-xs-12">
+    <div class="panel panel-default" ng-repeat="project in projects">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-6">
+            <h4>
+              {{project.title}}
+            </h4>
+          </div>
+          <div class="col-xs-6">
+            <em class="pull-right">Posted <span am-time-ago="project.createdAt"></span> ago</em>
+          </div>
+        </div>
+
+      </div>
+      <div class="panel-body">
+        <p>
+          <b>Description:</b> {{project.description | words: 50 }}
+        </p>
+
+        <p ng-show="project.skills.length > 0">
+          <b>Skills:</b>
+          <span class="label label-info project-skill" ng-repeat="skill in project.skills">{{skill}}</span>
+        </p>
+
+        <a href ui-sref="client.edit-project({_id: project._id})" class="btn btn-success">Edit</a>
+
+      </div>
+    </div>
+  </div>
+</div>

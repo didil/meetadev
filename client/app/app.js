@@ -9,7 +9,9 @@ angular.module('meetadevApp', [
   'ui.bootstrap',
   'flash',
   'ui.select',
-  'ui.gravatar'
+  'ui.gravatar',
+  'truncate',
+  'angularMoment'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, uiSelectConfig,gravatarServiceProvider) {
     $urlRouterProvider

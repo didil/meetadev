@@ -39,12 +39,7 @@
 
     <div ui-view=""></div>
 
-    <footer class="footer">
-      <div class="container">
-        Copyright © 2015 - Developed by <a href="http://www.adilh.com">Adil Haritah</a> - Powered by Node.js + Angular.js
-      </div>
-    </footer>
-
+    <div ng-include="'components/footer/footer.html'"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -75,6 +70,9 @@
       <script src="bower_components/angular-flash-alert/dist/angular-flash.js"></script>
       <script src="bower_components/angular-ui-select/dist/select.js"></script>
       <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+      <script src="bower_components/angular-truncate-2/src/truncate.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-moment/angular-moment.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -95,6 +93,11 @@
           <script src="app/client/dashboard/dashboard.js"></script>
           <script src="app/client/edit-profile/edit-profile.controller.js"></script>
           <script src="app/client/edit-profile/edit-profile.js"></script>
+          <script src="app/client/edit-project/create-project.js"></script>
+          <script src="app/client/edit-project/edit-project.controller.js"></script>
+          <script src="app/client/edit-project/edit-project.js"></script>
+          <script src="app/client/projects-list/projects-list.controller.js"></script>
+          <script src="app/client/projects-list/projects-list.js"></script>
           <script src="app/freelancer/dashboard/dashboard.controller.js"></script>
           <script src="app/freelancer/dashboard/dashboard.js"></script>
           <script src="app/freelancer/edit-profile/edit-profile.controller.js"></script>
@@ -108,6 +111,7 @@
           <script src="components/mongoose-error/mongoose-error.directive.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/profile/profile.service.js"></script>
+          <script src="components/project/project.service.js"></script>
           <script src="components/skill/skill.service.js"></script>
           <script src="components/socket/socket.service.js"></script>
           <!-- endinjector -->
