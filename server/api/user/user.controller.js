@@ -101,7 +101,7 @@ exports.updateProfile = function (req, res, next) {
   var userId = req.user._id;
 
   User.findById(userId, function (err, user) {
-    var attrs = _.pick(req.body, ['title', 'website']);
+    var attrs = _.pick(req.body, ['title', 'website','aboutMe']);
     var updatedUser = _.merge(user, attrs);
     updatedUser.save(function (err) {
       if (err) return validationError(res, err);

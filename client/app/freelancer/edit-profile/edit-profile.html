@@ -19,6 +19,22 @@
           </div>
 
           <div class="row">
+            <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.aboutMe.$valid && submitted,
+                                            'has-error': editProfileForm.aboutMe.$invalid && submitted }">
+              <label>About me</label>
+              <textarea name="aboutMe" class="form-control" ng-model="user.aboutMe" rows="4"
+                     placeholder="I've been coding web apps since 2005 using ..." ng-minlength="50"
+                     required/> </textarea>
+              <p class="help-block" ng-show="editProfileForm.aboutMe.$error.required && submitted">
+                Say something about yourself !
+              </p>
+              <p class="help-block" ng-show="editProfileForm.aboutMe.$error.minlength && submitted">
+                Text too short (Min 50 characters).
+              </p>
+            </div>
+          </div>          
+          
+          <div class="row">
             <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.website.$valid && submitted,
                                             'has-error': editProfileForm.website.$invalid && submitted }">
               <label>Pro Website</label>

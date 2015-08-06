@@ -12,10 +12,7 @@ angular.module('meetadevApp')
       if ($scope.editProfileForm.$valid) {
         $scope.submitting = true;
 
-        Profile.update({
-          title: $scope.user.title,
-          website: $scope.user.website
-        }).then(function () {
+        Profile.update($scope.user).then(function () {
           // Account created, redirect to home
           $scope.submitting = false;
           $state.go('freelancer.dashboard');
