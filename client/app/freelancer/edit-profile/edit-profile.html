@@ -32,8 +32,24 @@
                 Text too short (Min 50 characters).
               </p>
             </div>
-          </div>          
-          
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-10" ng-class="{ 'has-success': editProfileForm.skills.$valid && submitted,
+                                            'has-error': editProfileForm.skills.$invalid && submitted }">
+              <label>Skills</label>
+
+              <ui-select multiple ng-model="user.skills" id="skills-ui-select">
+                <ui-select-match placeholder="Select skills ...">{{$item}}</ui-select-match>
+                <ui-select-choices repeat="skill in availableSkills | filter:$select.search" refresh="searchSkills($select.search)" refresh-delay="300">
+                  {{skill}}
+                </ui-select-choices>
+              </ui-select>
+
+
+            </div>
+          </div>
+
           <div class="row">
             <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.website.$valid && submitted,
                                             'has-error': editProfileForm.website.$invalid && submitted }">
@@ -51,7 +67,6 @@
               <p class="help-block" ng-show="editProfileForm.website.$error.mongoose">
                 {{ errors.website }}
               </p>
-
             </div>
           </div>
 

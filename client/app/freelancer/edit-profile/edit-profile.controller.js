@@ -1,10 +1,27 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('FreelancerEditProfileCtrl', function ($scope, Auth,Profile,$state,Flash) {
-    $scope.user = Auth.getCurrentUser();
-    $scope.errors = {};
-    $scope.submitting = false;
+  .controller('FreelancerEditProfileCtrl', function ($scope, Auth, Profile, $state, Flash, Skill) {
+
+    var initialize = function () {
+      $scope.user = Auth.getCurrentUser();
+      $scope.errors = {};
+      $scope.submitting = false;
+      $scope.availableSkills = [];
+    };
+
+    initialize();
+
+    $scope.searchSkills = function (q) {
+      if(!q || !q.trim()) return ;
+
+      Skill.find(q).then(function (response) {
+        $scope.availableSkills = response.data;
+        console.log(response.data);
+      }).catch(function (err) {
+        Flash.create('danger', err);
+      });
+    };
 
     $scope.updateProfile = function (user) {
       $scope.submitted = true;
@@ -30,4 +47,6 @@ angular.module('meetadevApp')
         });
       }
     };
-  });
+  }
+)
+;

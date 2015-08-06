@@ -101,8 +101,11 @@ exports.updateProfile = function (req, res, next) {
   var userId = req.user._id;
 
   User.findById(userId, function (err, user) {
-    var attrs = _.pick(req.body, ['title', 'website','aboutMe']);
+    var attrs = _.pick(req.body, ['title', 'website','aboutMe','skills']);
+    console.log(attrs);
+
     var updatedUser = _.merge(user, attrs);
+    user.markModified('skills');
     updatedUser.save(function (err) {
       if (err) return validationError(res, err);
       res.status(200).send('OK');
