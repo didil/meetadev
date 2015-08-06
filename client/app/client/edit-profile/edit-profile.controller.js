@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meetadevApp')
-  .controller('FreelancerEditProfileCtrl', function ($scope, Auth, Profile, $state, Flash, Skill) {
+  .controller('ClientEditProfileCtrl', function ($scope, Auth, Profile, $state, Flash) {
 
     var initialize = function () {
       $scope.user = Auth.getCurrentUser();
@@ -12,17 +12,6 @@ angular.module('meetadevApp')
 
     initialize();
 
-    $scope.searchSkills = function (q) {
-      if(!q || !q.trim()) return ;
-
-      Skill.find(q).then(function (response) {
-        $scope.availableSkills = response.data;
-        console.log(response.data);
-      }).catch(function (err) {
-        Flash.create('danger', err);
-      });
-    };
-
     $scope.updateProfile = function (user) {
       $scope.submitted = true;
 
@@ -32,7 +21,7 @@ angular.module('meetadevApp')
         Profile.update($scope.user).then(function () {
           $scope.submitting = false;
           Flash.create('success', "Profile saved successfully");
-          $state.go('freelancer.dashboard');
+          $state.go('client.dashboard');
         }).catch(function (err) {
           err = err.data;
           $scope.errors = {};

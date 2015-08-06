@@ -4,7 +4,7 @@ angular.module('meetadevApp')
   .factory('Profile', function ($http) {
 
     function update(attrs) {
-      var safeAttrs = _.pick(attrs, ['title', 'website','aboutMe','skills','hourlyRate']);
+      var safeAttrs = _.pick(attrs, ['title', 'website','aboutMe','skills','hourlyRate','company']);
 
       return $http.put('/api/users/profile', safeAttrs);
     }

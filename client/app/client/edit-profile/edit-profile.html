@@ -18,11 +18,11 @@
           </div>
 
           <div class="row">
-            <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.title.$valid && submitted,
+            <div class="form-group col-sm-4" ng-class="{ 'has-success': editProfileForm.title.$valid && submitted,
                                             'has-error': editProfileForm.title.$invalid && submitted }">
               <label>Title</label>
               <input type="text" name="title" class="form-control" ng-model="user.title"
-                     placeholder="Senior Front End Engineer"
+                     placeholder="CEO"
                      required/>
 
               <p class="help-block" ng-show="editProfileForm.title.$error.required && submitted">
@@ -30,28 +30,13 @@
               </p>
             </div>
 
-            <div class="form-group col-sm-2" ng-class="{ 'has-success': editProfileForm.hourlyRate.$valid && submitted,
-                                            'has-error': editProfileForm.hourlyRate.$invalid && submitted }">
-              <label>Hourly Rate</label>
-              <input type="number" name="hourlyRate" class="form-control" ng-model="user.hourlyRate"
-                     placeholder="20"  min="1" max="500"
-                     required/>
-              $ / hr
-
-              <p class="help-block" ng-show="editProfileForm.hourlyRate.$error.required && submitted">
-                An Hourly Rate is required
-              </p>
-
-              <p class="help-block" ng-show="editProfileForm.hourlyRate.$error.min && submitted">
-                Hourly Rate too low (Min 1 $/hr).
-              </p>
-
-              <p class="help-block" ng-show="editProfileForm.hourlyRate.$error.max && submitted">
-                Hourly Rate too high (Max 500 $/hr).
-              </p>
-
+            <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.company.$valid && submitted,
+                                            'has-error': editProfileForm.company.$invalid && submitted }">
+              <label>Company</label>
+              <input type="text" name="company" class="form-control" ng-model="user.company"
+                     placeholder="Top Startup Inc."
+                  />
             </div>
-
           </div>
 
           <div class="row">
@@ -67,43 +52,26 @@
           <div class="row">
             <div class="form-group col-sm-8" ng-class="{ 'has-success': editProfileForm.aboutMe.$valid && submitted,
                                             'has-error': editProfileForm.aboutMe.$invalid && submitted }">
-              <label>About me</label>
+              <label>About us</label>
               <textarea name="aboutMe" class="form-control" ng-model="user.aboutMe" rows="4"
-                        placeholder="I've been coding web apps since 2005 using ..." ng-minlength="50"
+                        placeholder="We're building the next disruptive social network ..." ng-minlength="30"
                         required/> </textarea>
               <p class="help-block" ng-show="editProfileForm.aboutMe.$error.required && submitted">
-                Say something about yourself !
+                Say something about yourself/your company !
               </p>
 
               <p class="help-block" ng-show="editProfileForm.aboutMe.$error.minlength && submitted">
-                Text too short (Min 50 characters).
+                Text too short (Min 30 characters).
               </p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="form-group col-sm-10" ng-class="{ 'has-success': editProfileForm.skills.$valid && submitted,
-                                            'has-error': editProfileForm.skills.$invalid && submitted }">
-              <label>Skills</label>
-
-              <ui-select multiple ng-model="user.skills" id="skills-ui-select">
-                <ui-select-match placeholder="Select skills ...">{{$item}}</ui-select-match>
-                <ui-select-choices repeat="skill in availableSkills | filter:$select.search"
-                                   refresh="searchSkills($select.search)" refresh-delay="300">
-                  {{skill}}
-                </ui-select-choices>
-              </ui-select>
-
-
             </div>
           </div>
 
           <div class="row">
             <div class="form-group col-sm-6" ng-class="{ 'has-success': editProfileForm.website.$valid && submitted,
                                             'has-error': editProfileForm.website.$invalid && submitted }">
-              <label>Pro Website</label>
+              <label>Website</label>
               <input type="url" name="website" class="form-control" ng-model="user.website"
-                     placeholder="http://www.dev-ninja.example.com"
+                     placeholder="http://www.top-startup.example.com"
                      mongoose-error
                   />
 
