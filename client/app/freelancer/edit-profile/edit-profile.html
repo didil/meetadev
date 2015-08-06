@@ -17,6 +17,29 @@
                 A Title is required
               </p>
             </div>
+
+            <div class="form-group col-sm-2" ng-class="{ 'has-success': editProfileForm.hourlyRate.$valid && submitted,
+                                            'has-error': editProfileForm.hourlyRate.$invalid && submitted }">
+              <label>Hourly Rate</label>
+              <input type="number" name="hourlyRate" class="form-control" ng-model="user.hourlyRate"
+                     placeholder="20"  min="1" max="500"
+                     required/>
+              $ / hr
+
+              <p class="help-block" ng-show="editProfileForm.hourlyRate.$error.required && submitted">
+                An Hourly Rate is required
+              </p>
+
+              <p class="help-block" ng-show="editProfileForm.hourlyRate.$error.min && submitted">
+                Hourly Rate too low (Min 1 $/hr).
+              </p>
+
+              <p class="help-block" ng-show="editProfileForm.hourlyRate.$error.max && submitted">
+                Hourly Rate too high (Max 500 $/hr).
+              </p>
+
+            </div>
+
           </div>
 
           <div class="row">

@@ -101,7 +101,7 @@ exports.updateProfile = function (req, res, next) {
   var userId = req.user._id;
 
   User.findById(userId, function (err, user) {
-    var attrs = _.pick(req.body, ['title', 'website','aboutMe','skills']);
+    var attrs = _.pick(req.body, ['title', 'website','aboutMe','skills','hourlyRate']);
     console.log(attrs);
 
     var updatedUser = _.merge(user, attrs);

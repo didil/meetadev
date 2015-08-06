@@ -14,6 +14,7 @@ var UserSchema = new Schema({
   aboutMe: String,
   skills: [String],
   website: String,
+  hourlyRate: Number,
   role: String,
   hashedPassword: String,
   provider: String,
