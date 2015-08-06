@@ -28,12 +28,22 @@
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('signup')}"><a ui-sref="signup">Sign up</a></li>
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('login')}"><a ui-sref="login">Login</a></li>
+
         <li ng-show="isLoggedIn()">
-          <p class="navbar-text">Hello {{ getCurrentUser().firstName }}</p>
+          <p class="navbar-text">
+            Hello {{ getCurrentUser().firstName }}
+          </p>
+        </li>
+        <li ng-show="isLoggedIn()">
+          <p id="navbar-gravatar" class="navbar-text">
+            <img  gravatar-src="getCurrentUser().email" gravatar-size="25"
+                 class="img-thumbnail img-circle img-responsive">
+          </p>
         </li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('settings')}"><a ui-sref="settings"><span
             class="glyphicon glyphicon-cog"></span></a></li>
         <li ng-show="isLoggedIn()"><a href ng-click="logout()">Logout</a></li>
+
       </ul>
     </div>
   </div>
