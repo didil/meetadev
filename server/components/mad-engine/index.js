@@ -1,7 +1,7 @@
 'use strict';
 
-var ProjectsEngine = require('./projects-engine');
-var FreelancersEngine = require('./freelancers-engine');
+var projectsEngine = require('./projects-engine');
+var freelancersEngine = require('./freelancers-engine');
 
-module.exports.ProjectsEngine = ProjectsEngine;
-module.exports.FreelancersEngine = FreelancersEngine;
+module.exports.projectsEngine = projectsEngine;
+module.exports.freelancersEngine = freelancersEngine;

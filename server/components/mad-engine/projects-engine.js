@@ -3,22 +3,17 @@
 var _ = require('lodash');
 var Project = require('api/project/project.model');
 
-function ProjectsEngine(freelancer) {
-  this.freelancer = freelancer;
-}
-
-ProjectsEngine.prototype.search = function (cb) {
-  if (_.isEmpty(this.freelancer.skills)) {
+module.exports.search = function (freelancer, cb) {
+  if (_.isEmpty(freelancer.skills)) {
     return cb(new Error("No Skills defined for freelancer"));
   }
 
-  Project.find({skills: {$in: this.freelancer.skills}}, function (err, projects) {
+  Project.find({skills: {$in: freelancer.skills}}, function (err, projects) {
     if (err) {
       return cb(err);
     }
 
-    cb(null,projects);
+    cb(null, projects);
   })
 };
 
-module.exports = ProjectsEngine;

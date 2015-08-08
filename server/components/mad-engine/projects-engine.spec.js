@@ -6,7 +6,7 @@ var app = require('app');
 var User = require('api/user/user.model');
 var Project = require('api/project/project.model');
 var Factory = require('config/factories');
-var ProjectsEngine = require('./projects-engine');
+var projectsEngine = require('./projects-engine');
 
 var freelancer;
 
@@ -38,8 +38,7 @@ describe('ProjectsEngine : Search', function () {
   describe('freelancer with no skills', function () {
     it('fails', function (done) {
       freelancer.skills = [];
-      var projectsEngine = new ProjectsEngine(freelancer);
-      projectsEngine.search(function (err, projects) {
+      projectsEngine.search(freelancer, function (err, projects) {
         should.exist(err);
         err.message.should.equal("No Skills defined for freelancer");
         done();
@@ -50,8 +49,7 @@ describe('ProjectsEngine : Search', function () {
   describe('freelancer with skills', function () {
     it('no matching projects', function (done) {
       freelancer.skills = ['painting'];
-      var projectsEngine = new ProjectsEngine(freelancer);
-      projectsEngine.search(function (err, matchedProjects) {
+      projectsEngine.search(freelancer, function (err, matchedProjects) {
         should.not.exist(err);
 
         matchedProjects.should.have.length(0);
@@ -61,8 +59,7 @@ describe('ProjectsEngine : Search', function () {
 
     it('1 skill : 2 matching projects', function (done) {
       freelancer.skills = ['java'];
-      var projectsEngine = new ProjectsEngine(freelancer);
-      projectsEngine.search(function (err, matchedProjects) {
+      projectsEngine.search(freelancer, function (err, matchedProjects) {
         should.not.exist(err);
 
         var matchedProjects = _.sortBy(matchedProjects, 'title');
@@ -75,8 +72,7 @@ describe('ProjectsEngine : Search', function () {
 
     it('1 skill : 3 matching projects', function (done) {
       freelancer.skills = ['c++'];
-      var projectsEngine = new ProjectsEngine(freelancer);
-      projectsEngine.search(function (err, matchedProjects) {
+      projectsEngine.search(freelancer, function (err, matchedProjects) {
         should.not.exist(err);
 
         matchedProjects.should.have.length(3);
@@ -86,8 +82,7 @@ describe('ProjectsEngine : Search', function () {
 
     it('2 skills : 3 matching projects', function (done) {
       freelancer.skills = ['java', 'ruby'];
-      var projectsEngine = new ProjectsEngine(freelancer);
-      projectsEngine.search(function (err, matchedProjects) {
+      projectsEngine.search(freelancer, function (err, matchedProjects) {
         should.not.exist(err);
 
         matchedProjects.should.have.length(3);

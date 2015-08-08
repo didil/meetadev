@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Project = require('./project.model');
+var projectsEngine = require('components/mad-engine').projectsEngine;
 
 // Get list of the user's projects
 exports.index = function(req, res) {
@@ -62,7 +63,10 @@ exports.destroy = function(req, res) {
 
 // Get matching projects for a freelancer
 exports.match = function(req, res) {
-//
+  projectsEngine.search(req.user, function(err, matchedProjects){
+    if (err) { return handleError(res, err); }
+    return res.status(200).json(matchedProjects);
+  });
 };
 
 function handleError(res, err) {
