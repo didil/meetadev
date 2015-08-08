@@ -5,6 +5,8 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var _ = require('lodash');
+var freelancersEngine = require('components/mad-engine').freelancersEngine;
+var Project = require('api/project/project.model');
 
 var validationError = function (res, err) {
   return res.status(422).json(err);
@@ -103,7 +105,6 @@ exports.updateProfile = function (req, res, next) {
 
   User.findById(userId, function (err, user) {
     var attrs = _.pick(req.body, ['title', 'website', 'aboutMe', 'skills', 'hourlyRate', 'company']);
-    console.log(attrs);
 
     var updatedUser = _.merge(user, attrs);
     user.markModified('skills');
@@ -114,9 +115,24 @@ exports.updateProfile = function (req, res, next) {
   });
 };
 
+// Get matching freelancers for a project
+exports.matchFreelancers = function(req, res) {
+  Project.findOne({_id: req.query.projectId}, function (err, project) {
+    if (err) {return handleError(res, err); }
+    freelancersEngine.search(project, function(err, matchedUsers){
+      if (err) { return handleError(res, err); }
+      return res.status(200).json(matchedUsers);
+    });
+  });
+};
+
 /**
  * Authentication callback
  */
 exports.authCallback = function (req, res, next) {
   res.redirect('/');
 };
+
+function handleError(res, err) {
+  return res.status(500).json(err);
+}
