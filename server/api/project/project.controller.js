@@ -62,10 +62,7 @@ exports.destroy = function(req, res) {
 
 // Get matching projects for a freelancer
 exports.match = function(req, res) {
-  Project.find( {owner: req.user._id}).sort({createdAt:'-1'}).exec(function (err, projects) {
-    if(err) { return handleError(res, err); }
-    return res.status(200).json(projects);
-  });
+//
 };
 
 function handleError(res, err) {
