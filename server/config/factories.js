@@ -1,11 +1,12 @@
 var Factory = require('rosie').Factory;
+var faker = require('faker');
 
 // User model
 Factory.define('user')
   .attr('provider', 'local')
-  .attr('firstName', 'John')
-  .attr('lastName', 'Doe')
-  .attr('email', 'test@test.com')
+  .attr('firstName',faker.name.firstName())
+  .attr('lastName', faker.name.lastName())
+  .attr('email',  faker.internet.email())
   .attr('password', 'password');
 
 Factory.define('freelancer-user').extend('user').attr('role', 'freelancer');
