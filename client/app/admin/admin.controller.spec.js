@@ -7,10 +7,15 @@ describe('Controller: AdminCtrl', function () {
   beforeEach(module('socketMock'));
 
   var AdminCtrl,
-      scope,
-      $httpBackend;
+    scope,
+    $httpBackend;
 
-  var users = [{_id:1},{_id:2}];
+  var users = [{_id: 1}, {_id: 2}];
+
+  // stop ui router from intercepting API call and breaking test
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.deferIntercept();
+  }));
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {

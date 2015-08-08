@@ -17,6 +17,8 @@ angular.module('meetadevApp')
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl',
-        authenticate: true
+        data: {
+          authenticate: true
+        }
       });
   });

@@ -55,13 +55,13 @@ angular.module('meetadevApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, Auth, $state) {
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
       Auth.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && !loggedIn) {
+        if (toState.data && toState.data.authenticate && !loggedIn) {
           event.preventDefault();
-          $location.path('/login');
+          $state.go('login');
         }
       });
     });

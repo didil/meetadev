@@ -4,6 +4,9 @@ angular.module('meetadevApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('client', {
-        templateUrl: 'app/client/client.html'
+        templateUrl: 'app/client/client.html',
+        data: {
+          authenticate: true
+        }
       });
   });

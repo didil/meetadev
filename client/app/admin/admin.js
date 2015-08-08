@@ -6,6 +6,9 @@ angular.module('meetadevApp')
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        data: {
+          authenticate: true
+        }
       });
   });
