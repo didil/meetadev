@@ -8,15 +8,9 @@ var Project = require('api/project/project.model');
 var Factory = require('config/factories');
 var projectsEngine = require('./projects-engine');
 
-var freelancer;
+var freelancer, projects;
 
 describe('ProjectsEngine : Search', function () {
-
-  var projects = [
-    {title: 'Project 1', skills: ['java', 'c#', 'c++']},
-    {title: 'Project 2', skills: ['javascript', 'ruby', 'c++']},
-    {title: 'Project 3', skills: ['java', 'c#', 'c++', 'html']}
-  ];
 
   before(function (done) {
     Project.remove().exec().then(function () {
@@ -25,8 +19,16 @@ describe('ProjectsEngine : Search', function () {
   });
 
   before(function (done) {
-    Project.create(projects, function (err) {
+    var projectsAttrs = [
+      {title: 'Project 1', skills: ['java', 'c#', 'c++']},
+      {title: 'Project 2', skills: ['javascript', 'ruby', 'c++']},
+      {title: 'Project 3', skills: ['java', 'c#', 'c++', 'html']}
+    ];
+
+    Project.create(projectsAttrs, function (err, results) {
       if (err) throw err;
+      projects = results;
+
       done();
     });
   });
@@ -70,16 +72,6 @@ describe('ProjectsEngine : Search', function () {
       });
     });
 
-    it('1 skill : 3 matching projects', function (done) {
-      freelancer.skills = ['c++'];
-      projectsEngine.search(freelancer, function (err, matchedProjects) {
-        should.not.exist(err);
-
-        matchedProjects.should.have.length(3);
-        done();
-      });
-    });
-
     it('2 skills : 3 matching projects', function (done) {
       freelancer.skills = ['java', 'ruby'];
       projectsEngine.search(freelancer, function (err, matchedProjects) {
@@ -89,6 +81,20 @@ describe('ProjectsEngine : Search', function () {
         done();
       });
     });
+
+    it('1 skill : 3 matching projects with 2 liked previously', function (done) {
+      freelancer.skills = ['c++'];
+      freelancer.okProjects = [projects[0]._id, projects[2]._id];
+
+      projectsEngine.search(freelancer, function (err, matchedProjects) {
+        should.not.exist(err);
+
+        matchedProjects.should.have.length(1);
+        matchedProjects[0].title.should.equal('Project 2');
+        done();
+      });
+    });
+
   });
 
   after(function (done) {
