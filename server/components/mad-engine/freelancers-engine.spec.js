@@ -9,14 +9,9 @@ var Factory = require('config/factories');
 var freelancersEngine = require('./freelancers-engine');
 
 var project;
+var freelancers;
 
 describe('FreelancersEngine : Search', function () {
-
-  var usersAttrs = [
-    _.merge(Factory.attributes('freelancer-user'), {skills: ['java', 'c#', 'c++']}),
-    _.merge(Factory.attributes('freelancer-user'), {skills: ['javascript', 'ruby', 'c++']}),
-    _.merge(Factory.attributes('freelancer-user'), {skills: ['java', 'c#', 'c++', 'html']})
-  ];
 
   before(function (done) {
     User.remove().exec().then(function () {
@@ -25,8 +20,16 @@ describe('FreelancersEngine : Search', function () {
   });
 
   before(function (done) {
-    User.create(usersAttrs, function (err) {
+    var usersAttrs = [
+      _.merge(Factory.attributes('freelancer-user'), {skills: ['java', 'c#', 'c++']}),
+      _.merge(Factory.attributes('freelancer-user'), {skills: ['javascript', 'ruby', 'c++']}),
+      _.merge(Factory.attributes('freelancer-user'), {skills: ['java', 'c#', 'c++', 'html']})
+    ];
+
+    User.create(usersAttrs, function (err, results) {
       if (err) throw err;
+
+      freelancers = results;
       done();
     });
   });
@@ -64,18 +67,8 @@ describe('FreelancersEngine : Search', function () {
 
         var matchedUsers = _.sortBy(matchedUsers, 'title');
         matchedUsers.should.have.length(2);
-        matchedUsers[0].firstName.should.equal(usersAttrs[0].firstName);
-        matchedUsers[1].firstName.should.equal(usersAttrs[2].firstName);
-        done();
-      });
-    });
-
-    it('1 skill : 3 matching freelancers', function (done) {
-      project.skills = ['c++'];
-      freelancersEngine.search(project, function (err, matchedUsers) {
-        should.not.exist(err);
-
-        matchedUsers.should.have.length(3);
+        matchedUsers[0].firstName.should.equal(freelancers[0].firstName);
+        matchedUsers[1].firstName.should.equal(freelancers[2].firstName);
         done();
       });
     });
@@ -89,6 +82,19 @@ describe('FreelancersEngine : Search', function () {
         done();
       });
     });
+
+    it('1 skill : 3 matching freelancers with 2 liked previously', function (done) {
+      project.skills = ['c++'];
+      project.okFreelancers = [freelancers[0]._id, freelancers[2]._id];
+      freelancersEngine.search(project, function (err, matchedUsers) {
+        should.not.exist(err);
+
+        matchedUsers.should.have.length(1);
+        matchedUsers[0].firstName.should.equal(freelancers[1].firstName);
+        done();
+      });
+    });
+
   });
 
   after(function (done) {

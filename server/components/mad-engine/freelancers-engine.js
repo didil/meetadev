@@ -9,7 +9,11 @@ module.exports.search = function (project, cb) {
     return cb(new Error("No Skills defined for project"));
   }
 
-  User.find({"role": "freelancer", skills: {$in: project.skills}}, function (err, users) {
+  User.find({
+    "role": "freelancer",
+    skills: {$in: project.skills},
+    _id: {$nin: project.okFreelancers}
+  }, function (err, users) {
     if (err) {
       return cb(err);
     }

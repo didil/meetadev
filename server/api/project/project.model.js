@@ -11,7 +11,11 @@ var ProjectSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }
+  },
+  okFreelancers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 ProjectSchema.plugin(timestamps);

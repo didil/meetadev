@@ -17,6 +17,10 @@ var UserSchema = new Schema({
   website: String,
   hourlyRate: Number,
   company: String,
+  okProjects: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
+  }],
   role: String,
   hashedPassword: String,
   provider: String,
