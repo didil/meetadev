@@ -3,6 +3,8 @@
 var _ = require('lodash');
 var Project = require('./project.model');
 var User = require('api/user/user.model');
+var Match = require('api/match/match.model');
+
 var projectsEngine = require('components/mad-engine').projectsEngine;
 
 // Get list of the user's projects
@@ -72,8 +74,19 @@ exports.match = function(req, res) {
 
 // Like a project.
 exports.ok = function(req, res) {
-  User.update({_id: req.user._id},{$addToSet: {okProjects: req.params.id}},function(err){
+  var projectId = req.params.id;
+  User.update({_id: req.user._id},{$addToSet: {okProjects: projectId}},function(err){
     if (err) { return handleError(res, err); }
+
+    Project.count({_id:projectId, okFreelancers: req.user._id }, function (err,count) {
+      if (err) { return handleError(res, err); }
+
+      if(count > 0) {
+        Match.create({freelancer: req.user._id, project: projectId},function(err,match){
+          if (err) { return handleError(res, err); }
+        })
+      }
+    });
 
     res.status(200).send('OK');
   });
