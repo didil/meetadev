@@ -84,7 +84,8 @@ describe('ProjectsEngine : Search', function () {
 
     it('1 skill : 3 matching projects with 2 liked previously', function (done) {
       freelancer.skills = ['c++'];
-      freelancer.okProjects = [projects[0]._id, projects[2]._id];
+      freelancer.okProjects = [projects[0]._id];
+      freelancer.nokProjects = [projects[2]._id];
 
       projectsEngine.search(freelancer, function (err, matchedProjects) {
         should.not.exist(err);

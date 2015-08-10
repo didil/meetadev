@@ -10,9 +10,12 @@ module.exports.search = function (project, cb) {
   }
 
   User.find({
-    "role": "freelancer",
-    skills: {$in: project.skills},
-    _id: {$nin: project.okFreelancers}
+    $and: [
+      {"role": "freelancer"},
+      {skills: {$in: project.skills}},
+      {_id: {$nin: project.okFreelancers}},
+      {_id: {$nin: project.nokFreelancers}}
+    ]
   }, function (err, users) {
     if (err) {
       return cb(err);

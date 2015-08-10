@@ -15,6 +15,10 @@ var ProjectSchema = new Schema({
   okFreelancers: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
+  }],
+  nokFreelancers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }]
 });
 

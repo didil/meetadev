@@ -21,6 +21,10 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Project'
   }],
+  nokProjects: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
+  }],
   role: String,
   hashedPassword: String,
   provider: String,

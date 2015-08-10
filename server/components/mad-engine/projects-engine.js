@@ -9,14 +9,19 @@ module.exports.search = function (freelancer, cb) {
   }
 
   Project.find({
-    skills: {$in: freelancer.skills},
-    _id: {$nin: freelancer.okProjects}
-  }, function (err, projects) {
-    if (err) {
-      return cb(err);
-    }
-
-    cb(null, projects);
+    $and: [
+      {skills: {$in: freelancer.skills}},
+      {_id: {$nin: freelancer.okProjects}},
+      {_id: {$nin: freelancer.nokProjects}}
+    ]
   })
+    .populate('owner', '-hashedPassword -salt')
+    .exec(function (err, projects) {
+      if (err) {
+        return cb(err);
+      }
+
+      cb(null, projects);
+    })
 };
 
