@@ -119,12 +119,36 @@ exports.updateProfile = function (req, res, next) {
 exports.matchFreelancers = function(req, res) {
   Project.findOne({_id: req.query.projectId}, function (err, project) {
     if (err) {return handleError(res, err); }
+    if (!project) {return handleError(res, "No Project Selected"); }
+
     freelancersEngine.search(project, function(err, matchedUsers){
       if (err) { return handleError(res, err); }
       return res.status(200).json(matchedUsers);
     });
   });
 };
+
+// Like a freelancer.
+exports.ok = function(req, res) {
+  console.log("project id : " + req.query.projectId);
+  console.log("freelancer id : " + req.params.id);
+
+  Project.update({_id: req.query.projectId},{$addToSet: {okFreelancers: req.params.id}},function(err){
+    if (err) { return handleError(res, err); }
+
+    res.status(200).send('OK');
+  });
+};
+
+// DisLike a freelancer.
+exports.nok = function(req, res) {
+  Project.update({_id: req.query.projectId},{$addToSet: {nokFreelancers: req.params.id}},function(err){
+    if (err) { return handleError(res, err); }
+
+    res.status(200).send('OK');
+  });
+};
+
 
 /**
  * Authentication callback

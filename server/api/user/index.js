@@ -7,6 +7,8 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
+router.post('/:id/ok', auth.hasRole('client'), controller.ok);
+router.post('/:id/nok', auth.hasRole('client'), controller.nok);
 router.get('/match-freelancers', auth.hasRole('client'), controller.matchFreelancers);
 router.put('/profile', auth.isAuthenticated(), controller.updateProfile);
 router.get('/', auth.hasRole('admin'), controller.index);

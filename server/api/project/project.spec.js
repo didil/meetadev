@@ -4,6 +4,7 @@ var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
 var User = require('../user/user.model');
+var Project = require('api/project/project.model');
 var createUserAndLogin = require('../../spec-helpers/login');
 
 

@@ -6,6 +6,8 @@ var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
+router.post('/:id/ok', auth.isAuthenticated(), controller.ok);
+router.post('/:id/nok', auth.isAuthenticated(), controller.nok);
 router.get('/match', auth.hasRole('freelancer'), controller.match);
 router.get('/', auth.isAuthenticated(), controller.index);
 router.get('/:id', auth.isAuthenticated(), controller.show);

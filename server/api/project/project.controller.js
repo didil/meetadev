@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Project = require('./project.model');
+var User = require('api/user/user.model');
 var projectsEngine = require('components/mad-engine').projectsEngine;
 
 // Get list of the user's projects
@@ -66,6 +67,24 @@ exports.match = function(req, res) {
   projectsEngine.search(req.user, function(err, matchedProjects){
     if (err) { return handleError(res, err); }
     return res.status(200).json(matchedProjects);
+  });
+};
+
+// Like a project.
+exports.ok = function(req, res) {
+  User.update({_id: req.user._id},{$addToSet: {okProjects: req.params.id}},function(err){
+    if (err) { return handleError(res, err); }
+
+    res.status(200).send('OK');
+  });
+};
+
+// DisLike a project.
+exports.nok = function(req, res) {
+  User.update({_id: req.user._id},{$addToSet: {nokProjects: req.params.id}},function(err){
+    if (err) { return handleError(res, err); }
+
+    res.status(200).send('OK');
   });
 };
 
