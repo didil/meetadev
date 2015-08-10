@@ -78,11 +78,11 @@ exports.ok = function(req, res) {
   User.update({_id: req.user._id},{$addToSet: {okProjects: projectId}},function(err){
     if (err) { return handleError(res, err); }
 
-    Project.count({_id:projectId, okFreelancers: req.user._id }, function (err,count) {
+    Project.findOne({_id:projectId, okFreelancers: req.user._id }, function (err,project) {
       if (err) { return handleError(res, err); }
 
-      if(count > 0) {
-        Match.create({freelancer: req.user._id, project: projectId},function(err,match){
+      if(project) {
+        Match.create({freelancer: req.user._id, project: projectId, client: project.owner},function(err,match){
           if (err) { return handleError(res, err); }
         })
       }

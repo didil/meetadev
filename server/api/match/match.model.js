@@ -8,6 +8,10 @@ var MatchSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  client: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   project: {
     type: Schema.Types.ObjectId,
     ref: 'Project'

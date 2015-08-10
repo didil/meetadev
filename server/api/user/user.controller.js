@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 var _ = require('lodash');
 var freelancersEngine = require('components/mad-engine').freelancersEngine;
 var Project = require('api/project/project.model');
+var Match = require('api/match/match.model');
 
 var validationError = function (res, err) {
   return res.status(422).json(err);
@@ -130,11 +131,21 @@ exports.matchFreelancers = function(req, res) {
 
 // Like a freelancer.
 exports.ok = function(req, res) {
-  console.log("project id : " + req.query.projectId);
-  console.log("freelancer id : " + req.params.id);
+  var freelancerId = req.params.id;
+  var projectId = req.query.projectId;
 
-  Project.update({_id: req.query.projectId},{$addToSet: {okFreelancers: req.params.id}},function(err){
+  Project.update({_id: projectId},{$addToSet: {okFreelancers: freelancerId}},function(err){
     if (err) { return handleError(res, err); }
+
+    User.findOne({_id: freelancerId, okProjects: projectId }, function (err,freelancer) {
+      if (err) { return handleError(res, err); }
+
+      if(freelancer) {
+        Match.create({freelancer: freelancerId, project: projectId, client: req.user._id},function(err,match){
+          if (err) { return handleError(res, err); }
+        })
+      }
+    });
 
     res.status(200).send('OK');
   });
