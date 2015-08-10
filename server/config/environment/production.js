@@ -21,5 +21,5 @@ module.exports = {
             'mongodb://localhost/meetadev'
   },
 
-  seedDB: true
+  seedDB: false
 };
