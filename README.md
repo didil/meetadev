@@ -9,3 +9,5 @@ Mobile App (Ionic) code repo at : <a href="https://github.com/didil/meetadev-mob
 MEAN Stack: MongoDB , Express.js , Angular.js , Node.js
 Tests with Karma / Mocha 
 
+## License
+The code is released under the <a href="http://www.gnu.org/licenses/gpl-2.0.txt">GNU General Public License v2.0</a>
